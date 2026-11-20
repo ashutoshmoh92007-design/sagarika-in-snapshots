@@ -1,23 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Cake, Gallery, Hero, Letter, Reasons, Timeline } from "@/components/birthday/Sections";
+import { MusicPill } from "@/components/birthday/MusicPill";
+import { SISTER_NAME } from "@/lib/birthday-data";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: `Happy Birthday, ${SISTER_NAME} ✨` },
+      { name: "description", content: `A little corner of the internet for ${SISTER_NAME} and all our memories.` },
+      { property: "og:title", content: `Happy Birthday, ${SISTER_NAME} ✨` },
+      { property: "og:description", content: "A digital scrapbook of memories, reasons and a letter from her brother." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="overflow-x-hidden">
+      <Hero /><Gallery /><Reasons /><Timeline /><Cake /><Letter />
+      <MusicPill />
+    </main>
   );
 }
